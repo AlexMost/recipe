@@ -1,0 +1,6 @@
+modules:
+  - module1
+  - module2
+
+bundles:
+  bundle1: [1, 2, 3]

@@ -2,8 +2,11 @@ gulp = require 'gulp'
 gutil = require 'gulp-util'
 coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
+nodeunit = require  'gulp-nodeunit'
 
 SRC_PATH = './src/**/*.coffee'
+SRC_TEST_PATH = './test/**/*.coffee'
+
 
 gulp.task 'default', ->
     gulp.src(SRC_PATH)
@@ -12,5 +15,12 @@ gulp.task 'default', ->
         .pipe(coffee({bare: true}).on('error', gutil.log))
         .pipe(gulp.dest('./lib'))
 
+
+gulp.task 'test', ->
+    gulp.src(SRC_TEST_PATH)
+        .pipe(nodeunit())
+
+
 gulp.task 'watch', ->
-    gulp.watch(SRC_PATH, ['default'])
+    gulp.watch SRC_PATH, ['default']
+    gulp.watch SRC_TEST_PATH, ['test']
