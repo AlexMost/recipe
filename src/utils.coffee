@@ -6,4 +6,4 @@ module.exports =
         fs.readFile filename, "utf-8", (err, res) ->
             (cb err) if err
             yaml.loadAll res, (data) ->
-                    cb null, data
+                cb null, data
