@@ -5,6 +5,11 @@ _ = require 'lodash'
 
 
 parse_recipe = (filename, cb) ->
+    ###
+    Function for reading, parsing and validating recipe
+    data structure.
+    ###
+
     async.waterfall(
         [
             _.partial(read_yaml_file, filename)
