@@ -16,6 +16,7 @@ exports.fail_if_abstract_is_not_present = (test) ->
 exports.fail_if_version_is_not_present = (test) ->
     recipe =
         abstract: []
+        modules: []
         bundles:
             bundle1: modules: []
 
@@ -26,6 +27,7 @@ exports.fail_if_version_is_not_present = (test) ->
 exports.fail_if_version_number_is_invalid = (test) ->
     recipe =
         abstract: version: "fjdk"
+        modules: []
         bundles:
             bundle1: modules: []
 
@@ -34,9 +36,23 @@ exports.fail_if_version_number_is_invalid = (test) ->
         test.done()
 
 exports.fail_if_has_no_bundles_or_realms = (test) ->
-    recipe = abstract: version: "fjdk"
+    recipe =
+        abstract:
+            version: "fjdk"
+        modules: []
+
     validate_recipe_structure recipe, (err, recipe) ->
-        test.ok err, "must fail if has not bundles or realm section"
+        test.ok err, "must fail if has no bundles or realm section"
+        test.done()
+
+exports.fail_if_has_no_modules_section = (test) ->
+    recipe =
+        abstract: version: 1
+        bundles:
+            bundle1: modules: []
+
+    validate_recipe_structure recipe, (err, recipe) ->
+        test.ok err, "must fail if has no modules section"
         test.done()
 
 exports.recipe_object_must_be_frozen = (test) ->
