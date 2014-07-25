@@ -1,4 +1,4 @@
-{parse_modules, RawModule} = require '../src/module_parser'
+{parse_modules, dispatch_modules, RawModule} = require '../src/module_parser'
 
 
 exports.test_parse_if_object = (test) ->
@@ -20,10 +20,11 @@ exports.test_parse_if_object = (test) ->
                 "modules must be instanceof RawModule")
         test.done()
 
+
 exports.test_parse_if_array = (test) ->
     modules =
         module1: ["./some/path.coffee", "commonjs_file"]
-        module2: ["commonjs_file2", "./some/path2.coffee"]
+        module2: ["./some/path2.coffee", "commonjs_file2"]
 
     parse_modules modules, (err, modules) ->
         test.ok !err, err
@@ -33,3 +34,11 @@ exports.test_parse_if_array = (test) ->
                 m instanceof RawModule
                 "modules must be instanceof RawModule")
         test.done()
+
+
+exports.test_dispatch_modules = (test) ->
+    modules =
+        module1: ["./some/path.coffee", "commonjs_file"]
+        module2: ["./some/path2.coffee", "commonjs_file2"]
+    test.done()
+

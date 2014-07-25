@@ -47,4 +47,10 @@ parse_modules = (modules, cb) ->
     async.map _modules, parse_module, cb
 
 
-module.exports = {parse_modules, RawModule}
+dispatch_modules = (recipe, cb) ->
+    async.waterfall([
+        _.partial(parse_modules, recipe)
+        ]
+        cb)
+
+module.exports = {parse_modules, dispatch_modules, RawModule}

@@ -17,8 +17,11 @@ class ModuleProtocol
 
 
 class ModuleAdapterProtocol
+    constructor: (@typeName, @moduleClass)  ->
     isValidFormat: -> throw (Error "isValid method is not implemented")
     isMatch: -> throw (Error "isMatch method is not implemented")
+    getTypeName: -> @typeName
+    instantiateModule: (data) -> new @moduleClass data
 
 
 module.exports = {ModuleProtocol, ModuleAdapterProtocol}
