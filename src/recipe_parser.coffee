@@ -1,6 +1,7 @@
 async = require 'async'
 path = require 'path'
 {read_yaml_file} = require './utils'
+{parse_modules} = require './module_parser'
 _ = require 'lodash'
 
 
