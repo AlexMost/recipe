@@ -36,9 +36,19 @@ exports.test_parse_if_array = (test) ->
         test.done()
 
 
-exports.test_dispatch_modules = (test) ->
+exports.test_parse_if_mixed = (test) ->
     modules =
-        module1: ["./some/path.coffee", "commonjs_file"]
+        module1:
+            type: "commonjs_file"
+            path: "./some/path.coffee"
         module2: ["./some/path2.coffee", "commonjs_file2"]
-    test.done()
+
+    parse_modules modules, (err, modules) ->
+        test.ok !err, err
+        test.ok modules.length is 2, "must be 2 reslt modules"
+        modules.map (m) ->
+            test.ok(
+                m instanceof RawModule
+                "modules must be instanceof RawModule")
+        test.done()
 

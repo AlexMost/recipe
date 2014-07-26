@@ -1,17 +1,19 @@
 {ModuleProtocol, ModuleAdapterProtocol} = require './../module_protocol'
 
+MODULE_TYPE = "cj_file"
 
 class SinglCjsFileModule extends ModuleProtocol
-    getType: -> "single_cjs_file"
-    getFiles: -> @path
+    getType: -> MODULE_TYPE
+    getFiles: -> @getPath()
 
 
 class SingleCjsFileAdapter extends ModuleAdapterProtocol
-    isValidFormat: (data) -> !! data.path
-    isMatch: (data) -> data.type is "single_cjs_file"
+    getModuleType: -> MODULE_TYPE
+    getModuleClass: -> SinglCjsFileModule
 
 
-single_cjs_file_module_processor =
-    name: "single_cjs_file"
-    adapter: SingleCjsFileAdapter()
-    moduleClass: SinglCjsFileModule
+module.exports = {
+    adapter: new SingleCjsFileAdapter()
+    MODULE_TYPE
+    SinglCjsFileModule
+}

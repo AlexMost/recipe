@@ -3,8 +3,8 @@
 
 class ModuleProtocol
     constructor: ({@name, @path, @deps, @opts}) ->
-        (throw Error "module name is missing") unless name
-        (throw Error "module path is missing") unless path
+        (throw Error "module name is missing") unless @name
+        (throw Error "module path is missing") unless @path
         @deps or= []
 
     getName: -> @name
@@ -17,11 +17,8 @@ class ModuleProtocol
 
 
 class ModuleAdapterProtocol
-    constructor: (@typeName, @moduleClass)  ->
-    isValidFormat: -> throw (Error "isValid method is not implemented")
-    isMatch: -> throw (Error "isMatch method is not implemented")
-    getTypeName: -> @typeName
-    instantiateModule: (data) -> new @moduleClass data
+    getModuleType: -> throw (Error "getModuleType is not implemented")
+    getModuleClass: -> throw (Error "getModuleClass is not implemented")
 
 
 module.exports = {ModuleProtocol, ModuleAdapterProtocol}
