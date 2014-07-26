@@ -23,3 +23,20 @@ exports.test_signle_cjs_module_dispatch = (test) ->
                 module2 instanceof SinglCjsFileModule
                 "module must be instance of SinglCjsFileModule")
             test.done()
+
+exports.throws_exception_if_wrong_adapter_type = (test) ->
+    {MODULE_TYPE, adapter: cj_adapter, SinglCjsFileModule
+    } = require '../src/module_types/single_cjs_module'
+
+    _modules =
+        module1: ["./some/path.coffee", MODULE_TYPE]
+        module2: ["./some/path2.coffee", MODULE_TYPE]
+
+    parse_modules _modules, (err, raw_modules) ->
+        test.ok !err, err
+        test.throws(
+            (->
+                dispatch_modules raw_modules, [cj_adapter, "fake"], ->)
+            Error
+            "must throw type Error")
+        test.done()
