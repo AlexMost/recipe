@@ -11,7 +11,14 @@ getModuleTypesDispatcher = (moduleAdapters, cb) ->
 
     dispatcher = {
         dispatchRawModule: (module, cb) ->
-            cb null, new typeMap[module.type](module)
+
+            if module.type of typeMap
+                cb null, new typeMap[module.type](module)
+            else
+                cb """
+                    module #{module.name} has unknown module
+                    type #{module.type}
+                    """
     }
 
     cb null, dispatcher
@@ -43,9 +50,11 @@ dispatch_modules = (modules, adapters, cb) ->
             modules
             dispatcher.dispatchRawModule
             (err, dispatchedModules) ->
-                cb err if err
-                check_modules_types dispatchedModules
-                cb null, dispatchedModules
+                if err
+                    cb err 
+                else
+                    check_modules_types dispatchedModules
+                    cb null, dispatchedModules
         )
 
 

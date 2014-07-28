@@ -45,11 +45,11 @@ exports.throws_exception_if_wrong_adapter_type = (test) ->
         test.done()
 
 
-exports.throws_exception_if_wrong_module_type = (test) ->
+exports.throws_exception_if_wrong_module_class = (test) ->
     MODULE_TYPE = "cj_file"
     class Fake
     class MockAdapter extends ModuleAdapterProtocol
-        getModuleType: -> ""
+        getModuleType: -> "cj_file"
         getModuleClass: -> Fake
 
     _modules =
@@ -65,4 +65,18 @@ exports.throws_exception_if_wrong_module_type = (test) ->
                 "must throw module type Error")
         test.done()
         
+
+exports.must_return_error_when_module_type_is_not_recognized = (test) ->
+    {MODULE_TYPE, adapter: cj_adapter
+    } = require '../src/module_types/single_cjs_module'
+
+    _modules =
+        module1: ["./some/path.coffee", MODULE_TYPE]
+        module2: ["./some/path2.coffee", "unknown_type"]
+
+    parse_modules _modules, (err, raw_modules) ->
+        dispatch_modules raw_modules, [cj_adapter], (err, modules) ->
+            test.ok err, "must return error status when unknown module type"
+            test.done()
+
 
