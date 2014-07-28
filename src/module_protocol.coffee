@@ -21,4 +21,17 @@ class ModuleAdapterProtocol
     getModuleClass: -> throw (Error "getModuleClass is not implemented")
 
 
-module.exports = {ModuleProtocol, ModuleAdapterProtocol}
+class ModuleTypeError
+    constructor: (@message) ->
+        @message or= ""
+        @name = "ModuleTypeError"
+
+
+class ModueAdapterTypeError
+    constructor: (@message) ->
+        @message or= ""
+        @name = "ModueAdapterTypeError"
+
+
+module.exports = {ModuleProtocol, ModuleAdapterProtocol, ModuleTypeError,
+ModueAdapterTypeError}

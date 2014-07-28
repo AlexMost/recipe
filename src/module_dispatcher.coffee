@@ -1,5 +1,6 @@
 async = require 'async'
-{ModuleProtocol, ModuleAdapterProtocol} = require './module_protocol'
+{ModuleProtocol, ModuleAdapterProtocol,
+ModuleTypeError, ModueAdapterTypeError} = require './module_protocol'
 
 
 getModuleTypesDispatcher = (moduleAdapters, cb) ->
@@ -19,7 +20,7 @@ getModuleTypesDispatcher = (moduleAdapters, cb) ->
 check_adapters_types = (adapters) ->
     for adapter in adapters
         unless adapter instanceof ModuleAdapterProtocol
-            (throw new Error("""
+            (throw new ModueAdapterTypeError("""
                 module adapters must be instance of
                 ModuleAdapterProtocol"""))
 
@@ -27,7 +28,7 @@ check_adapters_types = (adapters) ->
 check_modules_types = (modules) ->
     for module in modules
         unless module instanceof ModuleProtocol
-            (throw new Error("""
+            (throw new ModuleTypeError("""
                 modules must be instance of
                 ModuleProtocol
                 """))
