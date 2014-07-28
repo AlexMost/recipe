@@ -8,16 +8,12 @@ parse_bundle = (recipe, modules, bundle, cb) ->
             cb null, bundle
         else
             cb "Bundle #{name} has no modules section"
-
-    async.waterfall([
-        _.partial(bundle, validate_bundle)
-        ]
-        cb)
+    async.waterfall [(_.partial validate_bundle, bundle)], cb
 
 
-parse_bundles = (recipe, modules, cb) ->
-    _bundles = ({name, modules} for name, bundle of recipe.bundles)
-    _iterate_func = _.partial recipe, modules, parse_bundle
+parse_bundles = (recipe, mods, cb) ->
+    _bundles = ({name:n, bundle} for n, bundle of recipe.bundles)
+    _iterate_func = _.partial parse_bundle, recipe, mods
     async.map _bundles, _iterate_func, cb
 
 
