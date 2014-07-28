@@ -4,4 +4,5 @@ abstract:
 modules: []
 
 bundles:
-    bundle1: []
+    bundle1: 
+    	modules: []
