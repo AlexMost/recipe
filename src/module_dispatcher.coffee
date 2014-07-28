@@ -51,7 +51,7 @@ dispatch_modules = (modules, adapters, cb) ->
             dispatcher.dispatchRawModule
             (err, dispatchedModules) ->
                 if err
-                    cb err 
+                    cb err
                 else
                     check_modules_types dispatchedModules
                     cb null, dispatchedModules
