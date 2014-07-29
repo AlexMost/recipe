@@ -1,0 +1,13 @@
+abstract:
+    version: 1
+
+modules:
+    module1: ["./some/path/file.coffee", cj_file, [module2]]
+    module2: ["./some/path/file2.coffee", cj_file, [module3]]
+    module3: ["./some/path/file3.coffee", cj_file]
+
+bundles:
+    bundle1:
+        modules:
+            - module2
+            - module1
