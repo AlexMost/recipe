@@ -1,10 +1,10 @@
 async = require 'async'
 Q = require 'q'
-
 {parse_bundles} = require '../src/bundles_parser'
 {parse_recipe} = require '../src/recipe_parser'
 {parse_modules} = require '../src/module_parser'
 {dispatch_modules} = require '../src/module_dispatcher'
+
 
 read_recipe_modules = (filename, cb) ->
     {adapter} = require '../src/module_types/single_cjs_module'

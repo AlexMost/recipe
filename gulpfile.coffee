@@ -20,7 +20,7 @@ gulp.task 'test', ->
     gulp.src(SRC_TEST_PATH)
         .pipe(coffeelint())
         .pipe(coffeelint.reporter())
-        .pipe(nodeunit({reporter: "minimal"}))
+        .pipe(nodeunit({reporter: "default"}))
 
 
 gulp.task 'watch', ->

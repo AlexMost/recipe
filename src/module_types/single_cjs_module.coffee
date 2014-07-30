@@ -1,6 +1,6 @@
 {ModuleProtocol, ModuleAdapterProtocol} = require './../module_protocol'
-
 MODULE_TYPE = "cj_file"
+
 
 class SinglCjsFileModule extends ModuleProtocol
     getType: -> MODULE_TYPE
