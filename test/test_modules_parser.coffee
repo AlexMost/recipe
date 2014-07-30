@@ -52,3 +52,15 @@ exports.test_parse_if_mixed = (test) ->
                 "modules must be instanceof RawModule")
         test.done()
 
+
+exports.test_must_fail_if_unkown_dependency = (test) ->
+    modules =
+        module1:
+            type: "commonjs_file"
+            path: "./some/path.coffee"
+            deps: ["module3"]
+        module2: ["./some/path2.coffee", "commonjs_file2"]
+
+    parse_modules modules, (err, modules) ->
+        test.ok err, "must fail because module3 is not defined"
+        test.done()

@@ -42,9 +42,29 @@ parse_module = ([name, module], cb) ->
         else cb "unknown module format for module #{name}"
 
 
+validate_module_deps = (modules, module, cb) ->
+    modulesMap = {} # for fast in check O(1)
+    (modulesMap[m.getName()] = m) for m in modules
+
+    check_module_dep = (dep, cb) ->
+        if dep of modulesMap
+            cb null, module
+        else
+            cb "Unkown dependency #{dep} for module #{module.getName()}"
+
+    async.map module.getDeps(), check_module_dep, (err, mods) ->
+        return cb err if err
+        cb null, module
+
+
 parse_modules = (modules, cb) ->
     _modules = ([name, module] for name, module of modules)
-    async.map _modules, parse_module, cb
+    async.map _modules, parse_module, (err, modules) ->
+        return cb err if err
+        async.map(
+            modules
+            (_.partial validate_module_deps, modules)
+            cb)
 
 
 module.exports = {parse_modules, RawModule}
