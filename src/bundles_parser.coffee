@@ -45,7 +45,14 @@ parse_bundle = (recipe, modules, bundle, cb) ->
             else
                 no_deps_modules.push(module)
 
-        sorted_modules = toposort(toposort_graph).reverse()
+        sorted_modules = try
+            toposort(toposort_graph).reverse()
+        catch error
+            cb "Circular dependency found #{error}"
+            null
+
+        return if sorted_modules is null
+
         for m in no_deps_modules
             (sorted_modules.unshift m) unless m in sorted_modules
 

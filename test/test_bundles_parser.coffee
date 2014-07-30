@@ -50,8 +50,11 @@ exports.must_resolve_modules_dependencies = (test) ->
 
 
 exports.must_fail_on_circular_dependencies = (test) ->
-    # todo create test case
-    test.done()
+    filename = './test/fixtures/bundle_parser_with_circular_deps.yaml'
+    read_recipe_modules filename, (recipe, modules) ->
+        parse_bundles recipe, modules, (err, bundles) ->
+            test.ok err, "must fail if circular deps"
+            test.done()
 
 
 
