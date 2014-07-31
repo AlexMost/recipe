@@ -1,5 +1,5 @@
 {
-  "name": "recipe",
+  "name": "recipejs",
   "version": "0.0.3",
   "description": "recipe is the way to describe your client side module in some elegant and readable way",
   "main": "index.js",
