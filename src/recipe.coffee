@@ -8,7 +8,7 @@ ModueAdapterTypeError} = require './module_protocol'
 
 
 get_recipe_data = (filename, cb) ->
-    {adapter} = require '../src/module_types/single_cjs_module'
+    {adapter} = require '../lib/module_types/single_cjs_module'
 
     q_recipe = Q.nfcall parse_recipe, filename
 
