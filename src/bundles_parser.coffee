@@ -24,7 +24,8 @@ parse_bundle = (recipe, modules, bundle, cb) ->
                 cb null, {name, bundle}
             else
                 cb """Unknown module #{m} from bundle #{name}"""
-        async.map bundle.modules, module_exists, cb
+        async.map bundle.modules, module_exists, (err, res) ->
+            cb err, {name, bundle}
 
     create_bundle = (modules, {name, bundle}, cb) ->
         _bundle_modules = {}
@@ -58,9 +59,8 @@ parse_bundle = (recipe, modules, bundle, cb) ->
 
         cb null, (new Bundle name, bundle, sorted_modules)
 
-    create_bundles = (modules, bundles, cb) ->
-        iterate_bundle = (b, cb) -> create_bundle(modules, b, cb)
-        async.map bundles, iterate_bundle, cb
+    create_bundles = (modules, bundle, cb) ->
+        create_bundle modules, bundle, cb
 
     async.waterfall([
         (_.partial validate_bundle, bundle)

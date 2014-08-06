@@ -41,6 +41,7 @@ exports.must_resolve_modules_dependencies = (test) ->
     read_recipe_modules filename, (recipe, modules) ->
         parse_bundles recipe, modules, (err, bundles) ->
             test.ok !err, "must parse recipe with modules deps"
+            test.ok bundles.length is 1, "must be 1 bundle"
             [bundle] = bundles
             test.deepEqual(
                 bundle.getModules()

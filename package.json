@@ -1,6 +1,6 @@
 {
   "name": "recipejs",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "recipe is the way to describe your client side module in some elegant and readable way",
   "main": "index.js",
   "scripts": {

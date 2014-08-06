@@ -5,10 +5,10 @@ Q = require 'q'
 {dispatch_modules} = require './module_dispatcher'
 {ModuleProtocol, ModuleAdapterProtocol, ModuleTypeError,
 ModueAdapterTypeError} = require './module_protocol'
+{adapter} = require './module_types/single_cjs_module'
 
 
 get_recipe_data = (filename, cb) ->
-    {adapter} = require '../lib/module_types/single_cjs_module'
 
     q_recipe = Q.nfcall parse_recipe, filename
 
