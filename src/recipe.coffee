@@ -2,21 +2,14 @@ Q = require 'q'
 {parse_bundles} = require './bundles_parser'
 {parse_recipe} = require './recipe_parser'
 {parse_modules} = require './module_parser'
-{dispatch_modules} = require './module_dispatcher'
-{ModuleProtocol, ModuleAdapterProtocol, ModuleTypeError,
-ModueAdapterTypeError} = require './module_protocol'
-{adapter} = require './module_types/single_cjs_module'
 
 
 get_recipe_data = (filename, cb) ->
 
     q_recipe = Q.nfcall parse_recipe, filename
 
-    q_rawModules = q_recipe.then (recipe) ->
+    q_modules = q_recipe.then (recipe) ->
         Q.nfcall parse_modules, recipe.modules
-
-    q_modules = q_rawModules.then (modules) ->
-        Q.nfcall dispatch_modules, modules, [adapter]
 
     q_bundles = Q.all([q_recipe, q_modules]).spread((recipe, modules) ->
         Q.nfcall parse_bundles, recipe, modules)
@@ -27,5 +20,4 @@ get_recipe_data = (filename, cb) ->
      .catch(cb)
 
 
-module.exports = {get_recipe_data, ModuleProtocol,
-    ModuleAdapterProtocol, ModuleTypeError, ModueAdapterTypeError}
+module.exports = {get_recipe_data}

@@ -2,7 +2,7 @@ async = require 'async'
 _ = require 'lodash'
 
 
-class RawModule
+class Module
     constructor: (@name, {@path, @deps, @opts, @type}) ->
         @deps or= []
         @opts or= {}
@@ -21,7 +21,7 @@ parse_module_as_object = (name, module, cb) ->
         when not module.type then\
             cb "module type #{module.name} is undefined"
         else
-            cb null, new RawModule(name, module)
+            cb null, new Module(name, module)
 
 
 parse_module_as_list = (name, module, cb) ->
@@ -32,7 +32,7 @@ parse_module_as_list = (name, module, cb) ->
         when not type then\
             cb "module type #{module.name} is undefined"
         else
-            cb null, new RawModule(name, {path, type, deps, opts})
+            cb null, new Module(name, {path, type, deps, opts})
 
 
 parse_module = ([name, module], cb) ->
@@ -67,4 +67,4 @@ parse_modules = (modules, cb) ->
             cb)
 
 
-module.exports = {parse_modules, RawModule}
+module.exports = {parse_modules, Module}

@@ -3,19 +3,13 @@ Q = require 'q'
 {parse_bundles} = require '../src/bundles_parser'
 {parse_recipe} = require '../src/recipe_parser'
 {parse_modules} = require '../src/module_parser'
-{dispatch_modules} = require '../src/module_dispatcher'
 
 
 read_recipe_modules = (filename, cb) ->
-    {adapter} = require '../src/module_types/single_cjs_module'
-
     q_recipe = Q.nfcall parse_recipe, filename
 
-    q_rawModules = q_recipe.then (recipe) ->
+    q_modules = q_recipe.then (recipe) ->
         Q.nfcall parse_modules, recipe.modules
-
-    q_modules = q_rawModules.then (modules) ->
-        Q.nfcall dispatch_modules, modules, [adapter]
 
     Q.all([q_recipe, q_modules]).spread cb
 

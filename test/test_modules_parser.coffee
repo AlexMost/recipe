@@ -1,4 +1,4 @@
-{parse_modules, dispatch_modules, RawModule} = require '../src/module_parser'
+{parse_modules, dispatch_modules, Module} = require '../src/module_parser'
 
 
 exports.test_parse_if_object = (test) ->
@@ -16,8 +16,8 @@ exports.test_parse_if_object = (test) ->
         test.ok modules.length is 2, "must be 2 reslt modules"
         modules.map (m) ->
             test.ok(
-                m instanceof RawModule
-                "modules must be instanceof RawModule")
+                m instanceof Module
+                "modules must be instanceof Module")
         test.done()
 
 
@@ -31,8 +31,8 @@ exports.test_parse_if_array = (test) ->
         test.ok modules.length is 2, "must be 2 reslt modules"
         modules.map (m) ->
             test.ok(
-                m instanceof RawModule
-                "modules must be instanceof RawModule")
+                m instanceof Module
+                "modules must be instanceof Module")
         test.done()
 
 
@@ -48,8 +48,8 @@ exports.test_parse_if_mixed = (test) ->
         test.ok modules.length is 2, "must be 2 reslt modules"
         modules.map (m) ->
             test.ok(
-                m instanceof RawModule
-                "modules must be instanceof RawModule")
+                m instanceof Module
+                "modules must be instanceof Module")
         test.done()
 
 
