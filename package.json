@@ -1,10 +1,11 @@
 {
   "name": "recipejs",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "recipe is the way to describe your client side module in some elegant and readable way",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "gulp"
   },
   "repository": {
     "type": "git",
